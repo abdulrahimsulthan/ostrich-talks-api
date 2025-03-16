@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import configureDB from "./config/db";
 import sendNotification from "./controllers/sendNotification";
-dotenv.config();
 
 const { PORT=5000 } = process.env;
 const app = express();
