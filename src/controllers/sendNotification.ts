@@ -1,10 +1,11 @@
-const admin = require("../config/firebaseAdmin");
+import { Request, Response } from "express";
+import admin from "../config/firebaseAdmin";
 
-const sendNotification = async (req, res) => {
+const sendNotification = async (req: Request, res: Response): Promise<void> => {
     const { token, title, body } = req.body;
 
     if (!token || !title || !body) {
-        return res.status(400).send("Missing required fields");
+        res.status(400).send("Missing required fields");
     }
 
     const message = {
@@ -19,8 +20,8 @@ const sendNotification = async (req, res) => {
         const response = await admin.messaging().send(message);
         res.status(200).send({ success: true, response });
     } catch (error) {
-        res.status(500).send({ success: false, error: error.message });
+        res.status(500).send({ success: false, error: error });
     }
 };
 
-module.exports = sendNotification;
+export default sendNotification
